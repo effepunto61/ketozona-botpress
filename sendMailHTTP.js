@@ -1,46 +1,51 @@
-import express from "express";
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-
-dotenv.config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const axios = require('axios');
+require('dotenv').config();
 
 const app = express();
-app.use(express.json());
+app.use(bodyParser.json());
 
-const PORT = process.env.PORT || 4001;
+app.post('/sendMail', async (req, res) => {
+  const { to, subject, text } = req.body;
+  console.log('📩 Richiesta ricevuta per:', to);
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: parseInt(process.env.SMTP_PORT || "587"),
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
-app.post("/sendMail", async (req, res) => {
   try {
-    const { to, subject, text } = req.body;
-    if (!to || !subject || !text) {
-      return res.status(400).json({ success: false, error: "Missing fields" });
-    }
+    const response = await axios.post(
+      'https://api.mailjet.com/v3.1/send',
+      {
+        Messages: [
+          {
+            From: {
+              Email: process.env.MAIL_FROM,
+              Name: 'Ketozona Bot'
+            },
+            To: [
+              {
+                Email: to
+              }
+            ],
+            Subject: subject,
+            TextPart: text
+          }
+        ]
+      },
+      {
+        auth: {
+          username: process.env.MJ_APIKEY_PUBLIC,
+          password: process.env.MJ_APIKEY_PRIVATE
+        }
+      }
+    );
 
-    const info = await transporter.sendMail({
-      from: process.env.MAIL_FROM,
-      to,
-      subject,
-      text,
-    });
-
-    console.log("Email inviata:", info.messageId);
-    res.json({ success: true, message: "Email inviata con successo!" });
+    console.log('✅ Email inviata con successo:', response.data);
+    res.json({ success: true, message: 'Email inviata con successo!' });
   } catch (error) {
-    console.error("Errore invio email:", error);
+    console.error('❌ Errore Mailjet:', error.response?.data || error.message);
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server HTTP attivo su http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 4001;
+app.listen(PORT, () => console.log(`🚀 Server attivo su http://localhost:${PORT}`));
+
