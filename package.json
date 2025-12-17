@@ -1,16 +1,17 @@
 {
-  "name": "sendmail-server",
+  "name": "ketozona-botpress",
   "version": "1.0.0",
-  "description": "Server HTTP per inviare email via Mailjet API",
+  "description": "Server per invio email e widget Botpress Ketozona",
   "main": "sendMailHTTP.js",
+  "type": "module",
   "scripts": {
-    "start": "node sendMailHTTP.js"
+    "start": "node widget-server.js",
+    "sendmail": "node sendMailHTTP.js"
   },
   "dependencies": {
-    "axios": "^1.6.0",
-    "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2"
+    "express": "^4.19.2",
+    "nodemailer": "^6.9.4"
   }
 }
 
