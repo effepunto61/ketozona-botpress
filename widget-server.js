@@ -1,3 +1,5 @@
+// ✅ widget-server.js
+
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -8,15 +10,12 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Servire i file statici del webchat Botpress
-app.use('/assets', express.static(path.join(__dirname, 'public')));
-
-// Reindirizza alla tua istanza Botpress
-app.get('/bot', (req, res) => {
-  res.redirect('https://ketozona-botpress.onrender.com');
+// ✅ serve il file inject.js
+app.get('/inject.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'inject.js'));
 });
 
-// Endpoint di test
+// ✅ pagina di test
 app.get('/', (req, res) => {
   res.send('<h2>✅ Widget Ketozona Botpress attivo</h2>');
 });
