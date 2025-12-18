@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 1️⃣ Carica la libreria Botpress ufficiale
   const coreScript = document.createElement('script');
-  coreScript.src = 'https://cdn.botpress.cloud/webchat/v0/inject.js';
+  coreScript.src = 'https://ketozona-botpress.onrender.com/public/bp-webchat.js';
   coreScript.async = true;
 
   coreScript.onload = function () {
