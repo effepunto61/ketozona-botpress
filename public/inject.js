@@ -20,8 +20,8 @@
         // Inizializza la chat
         window.botpressWebChat.init({
           botId: "assistenzaclienti",
-          hostUrl: "https://ketozona-botpress.onrender.com",
-          messagingUrl: "https://ketozona-botpress.onrender.com",
+          hostUrl: "http://localhost:3000",
+          messagingUrl: "http://localhost:3000",
           clientId: "web",
           hideWidget: true,
           showCloseButton: true,
