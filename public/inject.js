@@ -1,92 +1,90 @@
-// ✅ inject.js - Widget Assistenza Clienti Ketozona (versione finale)
-
+// ✅ inject.js - Versione funzionante (bot attivo al clic)
 (function () {
-  // Carica lo script del webchat Botpress
-  const bpScript = document.createElement("script");
-  bpScript.src = "https://cdn.botpress.cloud/webchat/v0/inject.js";
-  bpScript.async = true;
+  // Carica script Botpress
+  const script = document.createElement("script");
+  script.src = "https://cdn.botpress.cloud/webchat/v0/inject.js";
+  script.async = true;
 
-  bpScript.onload = function () {
-    console.log("💬 Botpress WebChat caricato!");
+  script.onload = function () {
+    console.log("✅ Botpress WebChat caricata");
 
+    // Inizializza la chat
     window.botpressWebChat.init({
       botId: "assistenzaclienti",
       hostUrl: "https://ketozona-botpress.onrender.com",
       messagingUrl: "https://ketozona-botpress.onrender.com",
       clientId: "web",
-      showConversationsButton: false, // disattiviamo il pulsante standard
-      enableReset: true,
+      showConversationsButton: false,
       showCloseButton: true,
       showPoweredBy: false,
-      hideWidget: false,
+      hideWidget: true, // 👈 nasconde il widget originale
+      enableReset: true,
       stylesheet: "https://cdn.botpress.cloud/webchat/v0/inject.css",
       botName: "Assistenza Clienti Ketozona",
-      useSessionStorage: true,
-      enableTranscriptDownload: false,
       layoutWidth: "400px",
       layoutHeight: "600px",
-      theme: "light",
+      useSessionStorage: true,
+      enableTranscriptDownload: false,
     });
 
-    // 🎨 Aggiungi bottone flottante personalizzato
-    const button = document.createElement("img");
-    button.src =
-      "https://ketozona.com/themes/warehousechild/assets/img/bot-assistenza.jpg"; // la tua immagine verde
-    button.alt = "Assistenza clienti Ketozona";
-    button.id = "assistenzabot-btn";
+    // 🎨 Bottone personalizzato
+    const btn = document.createElement("img");
+    btn.src = "https://ketozona.com/themes/warehousechild/assets/img/bot-assistenza.jpg";
+    btn.alt = "Assistenza Clienti Ketozona";
+    btn.id = "assistenzaclienti-btn";
 
-    Object.assign(button.style, {
+    Object.assign(btn.style, {
       position: "fixed",
       right: "20px",
       top: "50%",
       transform: "translateY(-50%)",
-      width: "100px",
-      height: "100px",
+      width: "95px",
+      height: "95px",
+      borderRadius: "50%",
       cursor: "pointer",
       zIndex: "9999",
-      borderRadius: "50%",
       boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-      transition: "all 0.3s ease",
+      transition: "transform 0.2s ease-in-out",
     });
 
-    button.addEventListener("mouseenter", () => {
-      button.style.transform = "translateY(-50%) scale(1.05)";
+    btn.addEventListener("mouseenter", () => {
+      btn.style.transform = "translateY(-50%) scale(1.08)";
     });
-    button.addEventListener("mouseleave", () => {
-      button.style.transform = "translateY(-50%) scale(1)";
+    btn.addEventListener("mouseleave", () => {
+      btn.style.transform = "translateY(-50%)";
     });
 
-    // ✅ Mostra/Nasconde la chat quando clicchi il bottone
-    button.addEventListener("click", () => {
+    // ✅ Al click → mostra/nasconde la chat
+    btn.addEventListener("click", () => {
+      console.log("💬 Click su bottone assistenza");
       window.botpressWebChat.sendEvent({ type: "toggle" });
     });
 
-    document.body.appendChild(button);
+    document.body.appendChild(btn);
 
     // 📱 Adattamento mobile
     function repositionChat() {
-      const chatFrame = document.querySelector("iframe#bp-web-widget");
-      if (chatFrame) {
-        chatFrame.style.position = "fixed";
-        chatFrame.style.right = "10px";
-        chatFrame.style.zIndex = "9998";
+      const frame = document.querySelector("iframe#bp-web-widget");
+      if (frame) {
+        frame.style.position = "fixed";
+        frame.style.right = "10px";
+        frame.style.zIndex = "9998";
         if (window.innerWidth <= 768) {
-          chatFrame.style.width = "85vw";
-          chatFrame.style.height = "75vh";
-          chatFrame.style.bottom = "10px";
-          chatFrame.style.top = "auto";
+          frame.style.width = "85vw";
+          frame.style.height = "75vh";
+          frame.style.bottom = "10px";
+          frame.style.top = "auto";
         } else {
-          chatFrame.style.width = "400px";
-          chatFrame.style.height = "600px";
-          chatFrame.style.top = "45%";
-          chatFrame.style.transform = "translateY(-50%)";
+          frame.style.width = "400px";
+          frame.style.height = "600px";
+          frame.style.top = "45%";
+          frame.style.transform = "translateY(-50%)";
         }
       }
     }
-
     window.addEventListener("resize", repositionChat);
     setTimeout(repositionChat, 2000);
   };
 
-  document.body.appendChild(bpScript);
+  document.body.appendChild(script);
 })();
