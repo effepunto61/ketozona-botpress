@@ -1,15 +1,19 @@
 {
-  "name": "ketozona-botpress-server",
+  "name": "ketozona-botpress",
   "version": "1.0.0",
-  "description": "Botpress server per Ketozona con widget integrato",
+  "description": "Server per invio email e widget Botpress Ketozona",
+  "main": "widget-server.js",
+  "type": "module",
   "scripts": {
-    "start": "npx botpress start"
+    "start": "node widget-server.js",
+    "sendmail": "node sendMailHTTP.js"
   },
   "dependencies": {
-    "botpress": "^12.30.9"
-  },
-  "engines": {
-    "node": ">=16.0.0"
+    "dotenv": "^16.3.1",
+    "express": "^4.19.2",
+    "nodemailer": "^6.9.4"
   }
 }
+
+
 
