@@ -1,10 +1,15 @@
 {
   "name": "ketozona-botpress-server",
   "version": "1.0.0",
+  "description": "Botpress server per Ketozona con widget integrato",
   "scripts": {
     "start": "npx botpress start"
   },
   "dependencies": {
     "botpress": "^12.30.9"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
+
