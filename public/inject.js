@@ -1,22 +1,20 @@
-// ✅ inject.js — Widget Assistenza Clienti Ketozona (versione stabile)
+// ✅ inject.js — Widget Assistenza Clienti Ketozona (versione definitiva)
 document.addEventListener('DOMContentLoaded', function () {
   console.log("🚀 DOM pronto — avvio script Botpress Ketozona");
 
-  // 1️⃣ Carica la libreria Botpress ufficiale
+  // 1️⃣ Carica la libreria Botpress ufficiale dal tuo server
   const coreScript = document.createElement('script');
-  coreScript.src = 'https://ketozona-botpress.onrender.com/public/bp-webchat.js';
+  coreScript.src = 'https://ketozona-botpress.onrender.com/bp-webchat.js';
   coreScript.async = true;
 
   coreScript.onload = function () {
     console.log("✅ Libreria Botpress caricata, inizializzo...");
 
-    // 2️⃣ Attendi che botpressWebChat sia pronto
     const checkReady = setInterval(() => {
       if (window.botpressWebChat && window.botpressWebChat.init) {
         clearInterval(checkReady);
         console.log("🤖 Botpress disponibile — inizializzo widget");
 
-        // 3️⃣ Inizializza il widget
         window.botpressWebChat.init({
           botId: 'assistenzaclienti',
           hostUrl: 'https://ketozona-botpress.onrender.com',
@@ -36,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
           layoutHeight: '600px'
         });
 
-        // 4️⃣ Crea bottone personalizzato
         createChatButton();
       }
     }, 500);
@@ -48,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.head.appendChild(coreScript);
 
-  // 5️⃣ Funzione per il bottone sinistro
+  // 5️⃣ Bottone sinistro personalizzato
   function createChatButton() {
     console.log("🟢 Creo bottone chat personalizzato...");
     if (document.getElementById('botpress-chat-launcher')) return;
@@ -88,3 +85,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
