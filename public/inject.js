@@ -1,9 +1,9 @@
-// ✅ inject.js — Widget Assistenza Ketozona (versione finale stabile)
+// ✅ inject.js — Widget Assistenza Ketozona (versione finale FIX webchat)
 
 document.addEventListener('DOMContentLoaded', function () {
   console.log("🚀 DOM pronto — caricamento Botpress Ketozona");
 
-  // 1️⃣ Carica la libreria locale del webchat (serve da /webchat.js)
+  // 1️⃣ Carica la libreria corretta del webchat (attenzione al .js finale)
   const coreScript = document.createElement('script');
   coreScript.src = 'https://ketozona-botpress.onrender.com/webchat.js';
   coreScript.async = true;
