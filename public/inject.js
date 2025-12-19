@@ -1,10 +1,10 @@
-// ✅ inject.js — Widget Assistenza Clienti Ketozona (versione definitiva)
+// ✅ inject.js — Widget Assistenza Clienti Ketozona (versione stabile)
 document.addEventListener('DOMContentLoaded', function () {
   console.log("🚀 DOM pronto — avvio script Botpress Ketozona");
 
-  // 1️⃣ Carica la libreria Botpress ufficiale dal tuo server
+  // 1️⃣ Carica la libreria Botpress ufficiale dal CDN
   const coreScript = document.createElement('script');
-  coreScript.src = 'https://ketozona-botpress.onrender.com/bp-webchat.js';
+  coreScript.src = 'https://cdn.botpress.cloud/webchat/v0/inject.js';
   coreScript.async = true;
 
   coreScript.onload = function () {
