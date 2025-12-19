@@ -1,28 +1,29 @@
-// ✅ widget-server.js — versione corretta per servire i file statici da /public
-
+// ✅ widget-server.js — versione definitiva
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+// Carica le variabili d’ambiente
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Percorso assoluto
+// Calcola i percorsi assoluti
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ Serve i file statici dalla cartella /public
+// ✅ Rende pubblici i file della cartella /public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ Rotta base di test
+// ✅ Rotta base per controllo
 app.get('/', (req, res) => {
-  res.send('<h2>✅ Widget Ketozona Botpress attivo</h2>');
+  res.send('<h2>✅ Widget Ketozona Botpress attivo e funzionante</h2>');
 });
 
-// Avvia il server
+// ✅ Avvio server
 app.listen(PORT, () => {
-  console.log(`🚀 Server in esecuzione su porta ${PORT}`);
+  console.log(`🚀 Server Ketozona-Botpress attivo su porta ${PORT}`);
 });
+
