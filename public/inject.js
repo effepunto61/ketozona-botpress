@@ -1,26 +1,23 @@
-// ✅ inject.js — Widget Assistenza Clienti Ketozona (versione stabile per PrestaShop + IQITElementor)
-(function () {
-  console.log("🚀 Avvio widget Botpress Ketozona (versione PrestaShop-safe)");
+// ✅ inject.js — Widget Assistenza Ketozona (versione finale stabile)
 
-  // Evita doppi caricamenti
-  if (window.__botpressLoading) return;
-  window.__botpressLoading = true;
+document.addEventListener('DOMContentLoaded', function () {
+  console.log("🚀 DOM pronto — caricamento Botpress Ketozona");
 
-  // 1️⃣ Carica solo il JS Botpress, senza CSS globali
-  const script = document.createElement('script');
-  script.src = 'https://cdn.botpress.cloud/webchat/v0/inject.js';
-  script.async = true;
+  // 1️⃣ Carica la libreria locale del webchat (serve da /webchat.js)
+  const coreScript = document.createElement('script');
+  coreScript.src = 'https://ketozona-botpress.onrender.com/webchat.js';
+  coreScript.async = true;
 
-  script.onload = () => {
-    console.log("✅ Libreria Botpress caricata — inizializzo...");
+  coreScript.onload = function () {
+    console.log("✅ Libreria Botpress caricata con successo");
 
-    const waitForBP = setInterval(() => {
+    // 2️⃣ Attendi che botpressWebChat sia disponibile
+    const checkReady = setInterval(() => {
       if (window.botpressWebChat && window.botpressWebChat.init) {
-        clearInterval(waitForBP);
+        clearInterval(checkReady);
+        console.log("🤖 Botpress pronto — inizializzo il widget");
 
-        console.log("🤖 Botpress pronto — avvio widget");
-
-        // 2️⃣ Inizializza widget SENZA caricare inject.css
+        // 3️⃣ Inizializza il widget (nascosto all'avvio)
         window.botpressWebChat.init({
           botId: 'assistenzaclienti',
           hostUrl: 'https://ketozona-botpress.onrender.com',
@@ -31,7 +28,6 @@
           showCloseButton: true,
           showPoweredBy: false,
           hideWidget: true,
-          stylesheet: '', // ⛔ evita il CSS Botpress che gonfia il sito
           botName: 'Assistenza Ketozona',
           avatarUrl: 'https://ketozona.com/themes/warehousechild/assets/img/bot-assistenza.jpg',
           theme: 'light',
@@ -40,19 +36,21 @@
           layoutHeight: '600px'
         });
 
-        console.log("✅ Widget Botpress inizializzato");
+        // 4️⃣ Crea bottone chat a sinistra, metà pagina
         createChatButton();
       }
-    }, 1000);
+    }, 500);
   };
 
-  script.onerror = () =>
-    console.error("❌ Errore nel caricamento della libreria Botpress");
+  coreScript.onerror = function () {
+    console.error("❌ Errore nel caricamento della libreria webchat.js");
+  };
 
-  document.head.appendChild(script);
+  document.head.appendChild(coreScript);
 
-  // 3️⃣ Bottone chat sinistro personalizzato
+  // 🔹 Funzione per creare il bottone chat
   function createChatButton() {
+    console.log("🟢 Creo bottone chat personalizzato...");
     if (document.getElementById('botpress-chat-launcher')) return;
 
     const chatBtn = document.createElement('div');
@@ -73,10 +71,13 @@
     `;
     document.body.appendChild(chatBtn);
 
+    // Effetto hover
     chatBtn.addEventListener('mouseenter', () => chatBtn.style.transform = 'translateY(-50%) scale(1.1)');
     chatBtn.addEventListener('mouseleave', () => chatBtn.style.transform = 'translateY(-50%) scale(1)');
+
+    // Clic per aprire il widget
     chatBtn.addEventListener('click', function () {
-      console.log("💬 Clic su bottone chat");
+      console.log("💬 Bottone chat cliccato");
       if (window.botpressWebChat && window.botpressWebChat.sendEvent) {
         window.botpressWebChat.sendEvent({ type: 'show' });
       } else {
@@ -88,6 +89,4 @@
       }
     });
   }
-})();
-
-
+});
