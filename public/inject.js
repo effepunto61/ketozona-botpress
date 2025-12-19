@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 1️⃣ Carica la libreria corretta del webchat (attenzione al .js finale)
   const coreScript = document.createElement('script');
-  coreScript.src = 'https://ketozona-botpress.onrender.com/webchat.js';
+  coreScript.src = 'https://cdn.botpress.cloud/webchat/v1/inject.js';
   coreScript.async = true;
 
   coreScript.onload = function () {
