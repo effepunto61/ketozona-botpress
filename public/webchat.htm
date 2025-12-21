@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Botpress Ketozona</title>
+</head>
+<body style="margin:0; padding:0; overflow:hidden;">
+  <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      const params = new URLSearchParams(window.location.search);
+      const opts = JSON.parse(decodeURIComponent(params.get('options')));
+
+      window.botpressWebChat.init(opts.config);
+    });
+  </script>
+</body>
+</html>
