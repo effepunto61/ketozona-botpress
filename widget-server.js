@@ -34,8 +34,13 @@ app.get('/', (req, res) => {
     </ul>
   `);
 });
+// ✅ Gestisce il rendering della webchat
+app.get('/index.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'webchat.html'));
+});
 
 // ✅ Avvio server
 app.listen(PORT, () => {
   console.log(`🚀 Server Ketozona-Botpress attivo su porta ${PORT}`);
 });
+
