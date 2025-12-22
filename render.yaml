@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ketozona-botpress
+    env: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: BP_PRODUCTION
+        value: "true"
+      - key: PORT
+        value: "4000"
