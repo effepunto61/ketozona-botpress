@@ -1,86 +1,46 @@
-// ✅ inject.js — Widget Assistenza Clienti Ketozona (versione funzionante con Botpress Cloud)
-document.addEventListener('DOMContentLoaded', function () {
-  console.log("🚀 DOM pronto — avvio widget Botpress Ketozona");
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Assistenza Ketozona</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  // 1️⃣ Carica la libreria ufficiale Botpress Cloud
-  const coreScript = document.createElement('script');
-  coreScript.src = 'https://cdn.botpress.cloud/webchat/v1/inject.js';
-  coreScript.async = true;
+  <!-- 1) Carica la libreria ufficiale Botpress Cloud -->
+  <script src="https://cdn.botpress.cloud/webchat/v1/inject.js" async></script>
+</head>
+<body>
+  <script>
+    // 2) Aspetta che la libreria sia pronta e inizializza il widget
+    document.addEventListener('DOMContentLoaded', function () {
+      function initWebchat() {
+        if (!window.botpressWebChat) {
+          console.error('botpressWebChat non definito ancora, ritento...');
+          setTimeout(initWebchat, 500);
+          return;
+        }
 
-  coreScript.onload = function () {
-    console.log("✅ Libreria Botpress caricata con successo");
-
-    // 2️⃣ Inizializza il widget Botpress con configurazione completa
-    window.botpressWebChat.init({
-	  botId: 'assistenzaclienti',
-	  clientId: 'web',
-	  messagingUrl: 'https://ketozona-botpress-2z7d.onrender.com',
-	  // hostUrl: 'https://cdn.botpress.cloud/webchat/v1',
-	  transport: 'polling',
-	  showConversationsButton: false,
-	  enableReset: true,
-	  showCloseButton: true,
-	  showPoweredBy: false,
-	  hideWidget: true,
-	  botName: 'Assistenza Ketozona',
-	  avatarUrl: 'https://ketozona.com/themes/warehousechild/assets/img/bot-assistenza.jpg',
-	  theme: 'light',
-	  useSessionStorage: true,
-	  layoutWidth: '400px',
-	  layoutHeight: '600px'
-	});
-
-
-    console.log("🤖 Widget Botpress inizializzato correttamente");
-
-    // 3️⃣ Crea il bottone flottante personalizzato
-    creaBottoneChat();
-  };
-
-  coreScript.onerror = function () {
-    console.error("❌ Errore nel caricamento della libreria Botpress Cloud");
-  };
-
-  document.head.appendChild(coreScript);
-
-  // 🔹 Funzione per il bottone
-  function creaBottoneChat() {
-    if (document.getElementById('botpress-chat-launcher')) return;
-
-    const chatBtn = document.createElement('div');
-    chatBtn.id = 'botpress-chat-launcher';
-    chatBtn.style.position = 'fixed';
-    chatBtn.style.left = '20px';
-    chatBtn.style.top = '50%';
-    chatBtn.style.transform = 'translateY(-50%)';
-    chatBtn.style.zIndex = '99999';
-    chatBtn.style.cursor = 'pointer';
-    chatBtn.style.transition = 'transform 0.2s ease';
-    chatBtn.innerHTML = `
-      <img src="https://ketozona.com/themes/warehousechild/assets/img/bot-assistenza.jpg"
-           alt="Assistenza Ketozona"
-           style="width:80px;height:80px;border-radius:50%;
-                  box-shadow:0 4px 10px rgba(0,0,0,0.25);
-                  border:3px solid #fff;">
-    `;
-    document.body.appendChild(chatBtn);
-
-    // Hover
-    chatBtn.addEventListener('mouseenter', () => chatBtn.style.transform = 'translateY(-50%) scale(1.1)');
-    chatBtn.addEventListener('mouseleave', () => chatBtn.style.transform = 'translateY(-50%) scale(1)');
-
-    // Click per aprire la chat
-    chatBtn.addEventListener('click', function () {
-      console.log("💬 Bottone chat cliccato");
-      if (window.botpressWebChat && window.botpressWebChat.sendEvent) {
-        window.botpressWebChat.sendEvent({ type: 'show' });
-      } else {
-        console.warn("⏳ Botpress non ancora pronto, ritento...");
-        setTimeout(() => {
-          if (window.botpressWebChat && window.botpressWebChat.sendEvent)
-            window.botpressWebChat.sendEvent({ type: 'show' });
-        }, 1000);
+        window.botpressWebChat.init({
+          botId: 'assistenzaclienti',
+          clientId: 'web',
+          messagingUrl: 'https://ketozona-botpress-2z7d.onrender.com',
+          transport: 'polling',
+          showConversationsButton: false,
+          enableReset: true,
+          showCloseButton: true,
+          showPoweredBy: false,
+          hideWidget: false, // QUI la chat si vede subito nella pagina iframe
+          botName: 'Assistenza Ketozona',
+          avatarUrl: 'https://ketozona.com/themes/warehousechild/assets/img/bot-assistenza.jpg',
+          theme: 'light',
+          useSessionStorage: true,
+          layoutWidth: '400px',
+          layoutHeight: '600px'
+        });
       }
+
+      initWebchat();
     });
-  }
-});
+  </script>
+</body>
+</html>
+
