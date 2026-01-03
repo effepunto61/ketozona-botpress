@@ -2,22 +2,42 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Botpress Webchat Ketozona</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 60px;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    h3 {
-      color: green;
-    }
-  </style>
+  <title>Chat Assistenza Ketozona</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Carica la libreria Webchat di Botpress -->
+  <script src="https://cdn.botpress.cloud/webchat/v1/inject.js" async></script>
 </head>
 <body>
-  <h3>✅ Pagina webchat.html attiva su Render</h3>
-  <p>Se la vedi, il widget Botpress è collegato correttamente.</p>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      function initWebchat() {
+        if (!window.botpressWebChat) {
+          setTimeout(initWebchat, 500);
+          return;
+        }
+
+        window.botpressWebChat.init({
+          botId: 'assistenzaclienti',
+          clientId: 'web',
+          messagingUrl: 'https://ketozona-botpress-2z7d.onrender.com',
+          transport: 'polling',
+          showConversationsButton: false,
+          enableReset: true,
+          showCloseButton: true,
+          showPoweredBy: false,
+          hideWidget: false,
+          botName: 'Assistenza Ketozona',
+          avatarUrl: 'https://ketozona.com/themes/warehousechild/assets/img/bot-assistenza.jpg',
+          theme: 'light',
+          useSessionStorage: true,
+          layoutWidth: '400px',
+          layoutHeight: '600px'
+        });
+      }
+
+      initWebchat();
+    });
+  </script>
 </body>
 </html>
