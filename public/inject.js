@@ -12,22 +12,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 2️⃣ Inizializza il widget Botpress con configurazione completa
     window.botpressWebChat.init({
-      botId: 'assistenzaclienti',
-      clientId: 'web',
-      messagingUrl: 'https://ketozona-botpress.onrender.com',
-      hostUrl: 'https://cdn.botpress.cloud/webchat/v1',
-      showConversationsButton: false,
-      enableReset: true,
-      showCloseButton: true,
-      showPoweredBy: false,
-      hideWidget: true,
-      botName: 'Assistenza Ketozona',
-      avatarUrl: 'https://ketozona.com/themes/warehousechild/assets/img/bot-assistenza.jpg',
-      theme: 'light',
-      useSessionStorage: true,
-      layoutWidth: '400px',
-      layoutHeight: '600px'
-    });
+	  botId: 'assistenzaclienti',
+	  clientId: 'web',
+	  messagingUrl: 'https://ketozona-botpress-2z7d.onrender.com',
+	  // hostUrl: 'https://cdn.botpress.cloud/webchat/v1',
+	  transport: 'polling',
+	  showConversationsButton: false,
+	  enableReset: true,
+	  showCloseButton: true,
+	  showPoweredBy: false,
+	  hideWidget: true,
+	  botName: 'Assistenza Ketozona',
+	  avatarUrl: 'https://ketozona.com/themes/warehousechild/assets/img/bot-assistenza.jpg',
+	  theme: 'light',
+	  useSessionStorage: true,
+	  layoutWidth: '400px',
+	  layoutHeight: '600px'
+	});
+
 
     console.log("🤖 Widget Botpress inizializzato correttamente");
 
